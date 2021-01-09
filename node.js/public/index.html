@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Friends</title>
+    <link rel="icon" href="./images/hu.svg">
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+    h1{
+        text-align: center;
+        padding-top: 20px;
+    }
+
+    .out {
+        position: relative;
+    }
+
+    table {
+        width: 1000px;
+        text-align: center;
+        vertical-align: center;
+        border-collapse: collapse;
+        margin: 20px auto;
+        color: rgb(46, 37, 37);
+    }
+
+    table th {
+        background-color: #ccc;
+        height: 60px;
+    }
+
+    table tr {
+        height: 50px;
+        font-size: 20px;
+        font-family: '微软雅黑';
+    }
+
+    table tr:nth-of-type(2n-1) {
+        background-color: #F2F2F2;
+    }
+
+    table tr:hover {
+        background-color: #da6536;
+        transition: all .6s;
+        opacity: .8;
+        cursor: pointer;
+        height: 70px;
+    }
+
+    table tr button {
+        border: none;
+        outline: none;
+        background: none;
+        font-size: 16px;
+        cursor: pointer;
+        color: rgb(116, 70, 70);
+    }
+
+    table tr button:hover {
+        font-size: 20px;
+        background-color: #366d5d;
+        color: #fff;
+        height: 37px;
+        width: 70px;
+        transition: all 3s;
+    }
+
+    table tr td:last-child {
+        width: 100px;
+    }
+
+    table tr td input {
+        height: 30px;
+        width: 100px;
+    }
+
+    .addGirl {
+        width: 70px;
+        height: 70px;
+        border: none;
+        outline: none;
+        background-color: #fff;
+        opacity: 0;
+        border-radius: 50%;
+        color: #fff;
+        font-size: 18px;
+        cursor: pointer;
+        transition: all 1.5s;
+        position: fixed;
+        top: 200px;
+        right: 100px;
+    }
+
+    .removeAll {
+        width: 70px;
+        height: 70px;
+        border: none;
+        outline: none;
+        opacity: 0;
+        background-color: rgb(15, 63, 55);
+        border-radius: 50%;
+        color: #fff;
+        font-size: 18px;
+        cursor: pointer;
+        transition: all 1.5s;
+        position: fixed;
+        top: 250px;
+        right: 120px;
+    }
+
+    .search {
+        width: 70px;
+        height: 70px;
+        border: none;
+        outline: none;
+        opacity: 0;
+        background-color: rgb(160, 38, 38);
+        border-radius: 50%;
+        color: #fff;
+        font-size: 18px;
+        cursor: pointer;
+        transition: all 1.5s;
+        position: fixed;
+        top: 240px;
+        right: 70px;
+    }
+
+    .ShowAll {
+        width: 70px;
+        height: 70px;
+        border: none;
+        outline: none;
+        opacity: 0;
+        background-color: rgb(43, 38, 38);
+        border-radius: 50%;
+        color: #fff;
+        font-size: 18px;
+        cursor: pointer;
+        transition: all 1.5s;
+        position: fixed;
+        top: 280px;
+        right: 100px;
+    }
+
+    .addGirl:hover {
+        width: 100px;
+        height: 100px;
+        font-size: 21px;
+        color: #f07c82;
+        box-shadow: 5px 5px 10px #366d5d;
+        opacity: 1;
+        z-index: 1;
+    }
+
+    .ShowAll:hover {
+        width: 100px;
+        height: 100px;
+        font-size: 21px;
+        color: #f07c82;
+        opacity: 1;
+        z-index: 1;
+        box-shadow: 5px 5px 10px #366d5d;
+    }
+
+    .removeAll:hover {
+        width: 100px;
+        height: 100px;
+        font-size: 21px;
+        color: #f07c82;
+        opacity: 1;
+        z-index: 1;
+        box-shadow: 5px 5px 10px #366d5d;
+    }
+
+    .search:hover {
+        width: 100px;
+        height: 100px;
+        font-size: 21px;
+        color: #f07c82;
+        opacity: 1;
+        z-index: 1;
+        box-shadow: 5px 5px 10px #366d5d;
+    }
+
+    .footer {
+        height: 50px;
+        background-color: #366d5d;
+        width: 200px;
+        position: absolute;
+        top: 60px;
+        right: 40px;
+        border-radius: 10px;
+    }
+
+    .footer input {
+        height: 100%;
+        width: 100%;
+        border-radius: 10px;
+        border: 1px solid #ccc;
+        outline: none;
+        font-size: 18px;
+        text-align: center;
+    }
+</style>
+<body>
+    <div class="out">
+        <h1>年少不知富婆好，空把少女当成宝</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>姓名</th>
+                    <th>身高(m)</th>
+                    <th>电话(ss)</th>
+                    <th>特点</th>
+                    <th>癖好</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody id="allData"></tbody>
+        </table>
+        <button class="addGirl">Addition</button>
+        <button class="removeAll">Clear</button>
+        <button class="search">Search</button>
+        <button class="ShowAll">ShowAll</button>
+    </div>
+    <div class="footer" hidden><input type="text" id="searchValue"></div>
+</body>
+
+<script src=" ./javascripts/jquery-3.5.1.min.js"></script>
+<script src="./javascripts/layer/layer.js"></script>
+<script src="./javascripts/doT.min.js"></script>
+<!-- 数据 -->
+<script id="girls" type="text/x-dot-template">
+    {{~it:value:index}} 
+      <tr>
+         <td>
+            <input type="text" hidden value={{=value.name}}>
+            <span>{{=value.name}}</span>
+        </td>
+         <td>
+            <input type="text" hidden value={{=value.Measurements}}>
+            <span>{{=value.Measurements}}</span>
+        </td>
+         <td>
+            <input type="text" hidden value={{=value.Years}}>
+            <span>{{=value.Years}}</span>   
+        </td>
+         <td>
+            <input type="text" hidden value={{=value.name}}>
+            <span>{{=value.Trait}}</span>
+        </td>
+         <td>
+            <input type="text" hidden value={{=value.Birthday}}>
+            <span>{{=value.Birthday}}</span>
+        </td>
+         <td>
+             <button class="delGirl" data-id="{{=value._id}}">删除</button>
+             <button class="revise">修改</button>
+             <button class="define" data-id="{{=value._id}}" hidden>确定</button>
+        </td>
+      </tr>
+    {{~}}
+  </script>
+<script>
+    // 加载所有人
+    onLoad()
+    $('.ShowAll').on('click', function () {
+        onLoad()
+    })
+
+    function onLoad() {
+        $.ajax({
+            url: "http://localhost:3000/getData",
+            success: function (res) {
+                var NewMusic = doT.template($('#girls').text());
+                $('#allData').html(NewMusic(res));
+                console.log(res);
+                console.log(NewMusic(res));
+            }
+        })
+    }
+    // 删除单个 事件委托
+    $('#allData').on('click', ".delGirl", function () {
+        let id = $(this).attr("data-id")
+        layer.confirm('确定要放弃这个吗?', {
+            btn: ['确定', '再想想'], //按钮
+        }, function () {
+            $.ajax({
+                url: 'http://localhost:3000/remove',
+                data: {
+                    _id: id
+                },
+                success(msg) {
+                    if (msg) {
+                        findList()
+                    }
+                }
+            })
+            layer.msg('删除成功', {
+                icon: 1
+            });
+        }, function () {
+            layer.msg('想好了再说', {
+                time: 20000, //20s后自动关闭
+                btn: ['明白了', '知道了']
+            });
+        });
+    })
+    // 删除所有 事件委托
+    $('.removeAll').on('click', function () {
+        let id = $('#allData>td').children().attr("data-id")
+        console.log(id);
+        layer.confirm('确定要全部删除吗?', {
+            btn: ['确定', '再想想'], //按钮
+        }, function () {
+            $.ajax({
+                url: 'http://localhost:3000/removeAll',
+                data: {
+                    _id: id
+                },
+                success(msg) {
+                    if (msg) {
+                        onLoad()
+                        findList()
+                    }
+                }
+            })
+            layer.msg('删除成功', {
+                icon: 1
+            });
+        }, function () {
+            layer.msg('想好了再说', {
+                time: 20000, //20s后自动关闭
+                btn: ['明白了', '知道了']
+            });
+        });
+    })
+    // 添加 
+    $('.addGirl').on('click', () => {
+        layer.prompt({
+            title: '请输入姓名',
+            formType: 3
+        }, function (name, index) {
+            layer.close(index);
+            layer.prompt({
+                title: '请输入身高',
+                formType: 3
+            }, function (Measurements, index) {
+                layer.close(index);
+                layer.prompt({
+                    title: '请输入在一起时间',
+
+                    formType: 3
+                }, function (Years, index) {
+                    layer.close(index);
+                    layer.prompt({
+                        title: '请输入癖好',
+                        formType: 3
+                    }, function (Trait, index) {
+                        layer.close(index);
+                        layer.prompt({
+                            title: '请输入生日',
+                            formType: 3
+                        }, function (Birthday, index) {
+                            layer.close(index);
+                            // 请求
+                            $.ajax({
+                                url: 'http://localhost:3000/add',
+                                data: {
+                                    name,
+                                    Measurements,
+                                    Years,
+                                    Trait,
+                                    Birthday
+                                },
+                                success(msg) {
+                                    if (msg == true) {
+                                        layer.msg('添加成功')
+                                        onLoad()
+                                    }
+                                }
+                            })
+
+                        });
+                    });
+                });
+            });
+        });
+
+
+    })
+    // 修改
+    $('#allData').on('click', '.revise', function () {
+        $(this).parent().siblings().children('input').show()
+        $(this).parent().siblings().children('span').hide()
+        $(this).hide()
+        $(this).next().show()
+    })
+    $('#allData').on('click', '.define', function () {
+        let id = $(this).attr("data-id")
+        console.log(id);
+        $(this).prev().show()
+        $(this).hide()
+        // 新数据
+        let newName = $(this).parent().siblings('td:eq(0)').children('input').val()
+        let newMeasurements = $(this).parent().siblings('td:eq(1)').children('input').val()
+        let newYears = $(this).parent().siblings('td:eq(2)').children('input').val()
+        let newTrait = $(this).parent().siblings('td:eq(3)').children('input').val()
+        let newBirthday = $(this).parent().siblings('td:eq(4)').children('input').val()
+        $.ajax({
+            url: 'http://localhost:3000/change',
+            data: {
+                _id: id,
+                newName,
+                newMeasurements,
+                newYears,
+                newTrait,
+                newBirthday,
+            },
+            success(msg) {
+                if (msg) {
+                    layer.msg('修改成功')
+                    findList()
+                }
+            }
+        })
+    })
+    // 查找
+    function findList() {
+        let searchMsg = $('#searchValue').val()
+
+        console.log(searchMsg);
+        $.ajax({
+            url: "http://localhost:3000/find",
+            data: {
+                name: searchMsg
+            },
+            success: function (res) {
+                    var NewMusic = doT.template($('#girls').text());
+                    $('#allData').html(NewMusic(res));
+            }
+        })
+    }
+    $('.search').on('click', function () {
+        findList()
+        $('.footer').toggle()
+    })
+    $('#searchValue').keydown(function (e) {
+        if (e.keyCode == 13) {
+            findList()
+            // $('#searchValue').val('')
+        }
+    });
+</script>
+</html>
